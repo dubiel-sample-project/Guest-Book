@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Entries list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+                <td><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></td>
+                <td>{{ entry.title }}</td>
+                <td>{{ entry.content }}</td>
+                <td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entry.author }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('entry_show', { 'id': entry.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('entry_edit', { 'id': entry.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('entry_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

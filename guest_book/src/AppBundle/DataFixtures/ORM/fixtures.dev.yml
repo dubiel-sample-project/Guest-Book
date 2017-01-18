@@ -1,0 +1,4 @@
+include:
+    - 'authors.yml'
+    - 'entries.yml'
+    - 'comments.yml'

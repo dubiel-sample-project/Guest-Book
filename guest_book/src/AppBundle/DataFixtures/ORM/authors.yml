@@ -1,0 +1,6 @@
+# src/AppBundle/DataFixtures/ORM/authors.yml
+
+AppBundle\Entity\Author:
+    author_{0..100}:
+        username: <productname()>
+        email: <sentence()>
