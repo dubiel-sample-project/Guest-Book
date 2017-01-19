@@ -2,17 +2,16 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Model\User as FOSUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Entity(repositoryClass="Ibrows\AppBundle\Repository\AuthorRepository")
  * @package AppBundle\Entity
  */
-class Author extends BaseUser
+class Author extends FOSUser
 {
 
     /**
@@ -20,28 +19,27 @@ class Author extends BaseUser
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-
     protected $id;
 
     /**
      * @var Entry[]|Collection
      *
      * @ORM\OneToMany(
-     *  targetEntity="AppBundle\Entity\Entry",
+     *  targetEntity="Entry",
      *  mappedBy="author"
      * )
      */
-    private $entries;
+    protected $entries;
 
     /**
      * @var Comment[]|Collection
      *
      * @ORM\OneToMany(
-     *  targetEntity="AppBundle\Entity\Comment",
+     *  targetEntity="Comment",
      *  mappedBy="author"
      * )
      */
-    private $comments;
+    protected $comments;
 
     public function __construct()
     {

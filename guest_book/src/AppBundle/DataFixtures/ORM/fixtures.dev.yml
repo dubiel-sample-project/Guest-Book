@@ -1,4 +1,4 @@
 include:
-    - 'authors.yml'
-    - 'entries.yml'
-    - 'comments.yml'
+    - '../entities/authors.yml'
+    - '../entities/entries.yml'
+    - '../entities/comments.yml'

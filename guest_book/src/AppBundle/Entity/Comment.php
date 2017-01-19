@@ -52,14 +52,25 @@ class Comment
     /**
      * @var \AppBundle\Entity\Author
      *
-     * @ORM\Column(nullable=true)
-     *
      * @ORM\ManyToOne(
-     *  targetEntity="AppBundle\Entity\Author",
+     *  targetEntity="Author",
      *  inversedBy="comments"
      * )
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", nullable=true)
      */
     private $author;
+
+    /**
+     * @var \AppBundle\Entity\Entry
+     *
+     * @ORM\ManyToOne(
+     *  targetEntity="Entry",
+     *  inversedBy="comments"
+     * )
+     *
+     * @ORM\JoinColumn(name="entry_id", referencedColumnName="id", nullable=true)
+s     */
+    private $entry;
 
     /**
      * Get id
@@ -190,5 +201,24 @@ class Comment
     {
         return $this->author;
     }
+
+    /**
+     * @return Entry
+     */
+    public function getEntry()
+    {
+        return $this->entry;
+    }
+
+    /**
+     * @param Entry $entry
+     * @return Comment
+     */
+    public function setEntry($entry)
+    {
+        $this->entry = $entry;
+        return $this;
+    }
+
 }
 

@@ -1,6 +1,0 @@
-# src/AppBundle/DataFixtures/ORM/entries.yml
-
-AppBundle\Entity\Entry:
-    entry_{0..100}:
-        username: <productname()>
-        email: <sentence()>

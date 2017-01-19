@@ -1,0 +1,9 @@
+# src/AppBundle/DataFixtures/ORM/authors.yml
+
+AppBundle\Entity\Author:
+    author_{0..100}:
+        username: <name()>
+        email: <email()>
+        enabled: true
+        roles: [ROLE_USER]
+        plainPassword: 'user'

@@ -1,0 +1,9 @@
+# src/AppBundle/DataFixtures/ORM/entries.yml
+
+AppBundle\Entity\Entry:
+    entry_{0..100}:
+        title: <word()>
+        content: <sentence()>
+        createdAt: <dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = date_default_timezone_get())>
+        updatedAt: <dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = date_default_timezone_get())>
+        author: '@author_*'

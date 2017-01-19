@@ -1,0 +1,10 @@
+# src/AppBundle/DataFixtures/ORM/comments.yml
+
+AppBundle\Entity\Comment:
+    comment_{0..100}:
+        title: <word()>
+        content: <sentence()>
+        createdAt: <dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = date_default_timezone_get())>
+        updatedAt: <dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = date_default_timezone_get())>
+        entry: '@entry_*'
+        author: '@author_*'

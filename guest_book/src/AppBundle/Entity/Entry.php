@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entry
@@ -50,16 +52,30 @@ class Entry
     private $updatedAt;
 
     /**
-     * @var \AppBundle\Entity\Author
-     *
-     * @ORM\Column(nullable=true)
+     * @var Author
      *
      * @ORM\ManyToOne(
-     *  targetEntity="AppBundle\Entity\Author",
+     *  targetEntity="Author",
      *  inversedBy="entries"
      * )
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", nullable=true)
      */
     private $author;
+
+    /**
+     * @var Comment[]|Collection
+     *
+     * @ORM\OneToMany(
+     *  targetEntity="AppBundle\Entity\Comment",
+     *  mappedBy="entry"
+     * )
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -170,7 +186,7 @@ class Entry
     /**
      * Set author
      *
-     * @param \AppBundle\Entity\Author $author
+     * @param Author $author
      *
      * @return Entry
      */
@@ -184,11 +200,30 @@ class Entry
     /**
      * Get author
      *
-     * @return \AppBundle\Entity\Author
+     * @return Author
      */
     public function getAuthor()
     {
         return $this->author;
     }
+
+    /**
+     * @return Comment[]|Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment[]|Collection $comments
+     * @return Entry
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
 }
 

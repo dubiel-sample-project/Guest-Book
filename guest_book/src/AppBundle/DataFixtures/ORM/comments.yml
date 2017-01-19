@@ -1,6 +1,0 @@
-# src/AppBundle/DataFixtures/ORM/comments.yml
-
-AppBundle\Entity\Comment:
-    comment_{0..100}:
-        username: <productname()>
-        email: <sentence()>
