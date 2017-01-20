@@ -8,8 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="Ibrows\AppBundle\Repository\AuthorRepository")
- * @package AppBundle\Entity
+ * @ORM\Table(name="author")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
  */
 class Author extends FOSUser
 {
