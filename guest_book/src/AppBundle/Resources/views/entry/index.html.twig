@@ -2,42 +2,37 @@
 
 {% block body %}
     <h1>Entries list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Author</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entry in entries %}
-            <tr>
-                <td><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></td>
-                <td>{{ entry.title }}</td>
-                <td>{{ entry.content }}</td>
-                <td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entry.author }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('entry_show', { 'id': entry.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('entry_edit', { 'id': entry.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	
+	<dl>
+		<dt>Id</dt>
+		<dt>Title</dt>
+		<dt>Content</dt>
+		<dt>Createdat</dt>
+		<dt>Updatedat</dt>
+		<dt>Author</dt>
+		<dt>Actions</dt>
+	</dl>
+		
+	{% for entry in entries %}
+		<dl>
+			<dd><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></dd>
+			<dd>{{ entry.title }}</dd>
+			<dd>{{ entry.content }}</dd>
+			<dd>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+			<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+			<dd>{{ entry.author }}</dd>
+			<dd>
+				<ul>
+					<li>
+						<a href="{{ path('entry_show', { 'id': entry.id }) }}">show</a>
+					</li>
+					<li>
+						<a href="{{ path('entry_edit', { 'id': entry.id }) }}">edit</a>
+					</li>
+				</ul>
+			</dd>
+		</dl>
+	{% endfor %}
 
     <ul>
         <li>

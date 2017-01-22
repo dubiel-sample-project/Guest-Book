@@ -16,11 +16,14 @@ class DefaultController extends Controller
     {
 		$entryRepo = $this->get('doctrine.orm.entryrepository');
 		
-		$query = $request->has('query') ?
-			$entryRepo->findEntriesByQuery($request->get('query'))
-			:
-			$entryRepo->getLatestEntries()
-		;
+		$form = new SearchForm();
+		$form->handleRequest($request);
+	
+		if ($form->isSubmitted() && $form->isValid()) {		
+			$query = $entryRepo->findEntriesByQuery($request->get('query'));
+		} else {
+			$query = $entryRepo->getLatestEntries();
+		}		
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -33,7 +36,7 @@ class DefaultController extends Controller
             'AppBundle:default:index.html.twig',
             array(
 				'pagination'  => $pagination,
-				'search_form' => (new SearchForm())->getView();
+				'search_form' => $form->createView();
 			)
         );
     }

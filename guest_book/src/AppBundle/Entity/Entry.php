@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entry
@@ -27,6 +28,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(min=5)	 
      */
     private $title;
 
@@ -34,6 +37,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+	 * @Assert\NotBlank()
+	 * @Assert\Length(min=15)	 
      */
     private $content;
 

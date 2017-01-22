@@ -3,35 +3,19 @@
 {% block body %}
     <h1>Entry</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entry.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entry.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ entry.content }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ entry.author }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <dl>
+        <dt>Id</dt>
+        <dd>{{ entry.id }}</dd>
+		<dt>Title</dt>
+		<dd>{{ entry.title }}</dd>
+		<dt>Content</dt>
+		<dd>{{ entry.content }}</dd>
+		<dt>Updatedat</dt>
+		<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+		<dt>Author</dt>
+		<dd>{{ entry.author }}</dd>
+	</dl>
+	
     <ul>
         <li>
             <a href="{{ path('entry_index') }}">Back to the list</a>

@@ -17,6 +17,7 @@ class SearchType extends AbstractType
 			->add('query', TextType, array(
 				'required' => true
 			))
+			->add('submit', SubmitType)
 		;
     }
     
