@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\SearchType as SearchForm;
 
 class DefaultController extends Controller
 {
@@ -13,20 +14,27 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT e FROM AppBundle:Entry e";
-        $query = $em->createQuery($dql);
+		$entryRepo = $this->get('doctrine.orm.entryrepository');
+		
+		$query = $request->has('query') ?
+			$entryRepo->findEntriesByQuery($request->get('query'))
+			:
+			$entryRepo->getLatestEntries()
+		;
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
             10
-        );
-
+        );	
+		
         return $this->render(
-            'AppBundle:Default:index.html.twig',
-            array('pagination' => $pagination)
+            'AppBundle:default:index.html.twig',
+            array(
+				'pagination'  => $pagination,
+				'search_form' => (new SearchForm())->getView();
+			)
         );
     }
 }

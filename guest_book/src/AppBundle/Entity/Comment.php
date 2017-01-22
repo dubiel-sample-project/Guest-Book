@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comment
  *
- * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -69,9 +69,14 @@ class Comment
      * )
      *
      * @ORM\JoinColumn(name="entry_id", referencedColumnName="id", nullable=true)
-s     */
+     */
     private $entry;
 
+    public function __construct()
+    {
+		$this->createdAt = new \DateTime();
+    }
+	
     /**
      * Get id
      *
@@ -219,6 +224,13 @@ s     */
         $this->entry = $entry;
         return $this;
     }
-
+	
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function preUpdate()
+	{
+		$this->updatedAt = new \DateTime();
+	}
 }
 

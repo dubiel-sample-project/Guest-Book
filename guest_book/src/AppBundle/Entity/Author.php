@@ -29,7 +29,7 @@ class Author extends FOSUser
      *  mappedBy="author"
      * )
      */
-    protected $entries;
+    private $entries;
 
     /**
      * @var Comment[]|Collection
@@ -39,7 +39,7 @@ class Author extends FOSUser
      *  mappedBy="author"
      * )
      */
-    protected $comments;
+    private $comments;
 
     public function __construct()
     {

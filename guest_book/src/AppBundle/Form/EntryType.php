@@ -13,7 +13,10 @@ class EntryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('createdAt')->add('updatedAt')->add('author')        ;
+        $builder
+			->add('title')
+			->add('content')
+		;
     }
     
     /**

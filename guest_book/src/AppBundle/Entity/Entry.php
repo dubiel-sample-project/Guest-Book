@@ -9,8 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Entry
  *
- * @ORM\Table(name="entry")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EntryRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Entry
 {
@@ -66,15 +66,17 @@ class Entry
      * @var Comment[]|Collection
      *
      * @ORM\OneToMany(
-     *  targetEntity="AppBundle\Entity\Comment",
+     *  targetEntity="Comment",
      *  mappedBy="entry"
      * )
-     */
+ 	 * @ORM\OrderBy({"createdAt" = "DESC"})
+    */
     private $comments;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+		$this->createdAt = new \DateTime();
     }
 
     /**
@@ -225,5 +227,12 @@ class Entry
         return $this;
     }
 
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function preUpdate()
+	{
+		$this->updatedAt = new \DateTime();
+	}	
 }
 
