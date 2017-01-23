@@ -24,9 +24,9 @@ class EntryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entries = $em->getRepository('AppBundle:Entry')->findAll();
+        $entries = $em->getRepository(Entry::class)->findAll();
 
-        return $this->render('entry/index.html.twig', array(
+        return $this->render('@App/entry/index.html.twig', array(
             'entries' => $entries,
         ));
     }
@@ -51,7 +51,7 @@ class EntryController extends Controller
             return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
         }
 
-        return $this->render('entry/new.html.twig', array(
+        return $this->render('@#App/entry/new.html.twig', array(
             'entry' => $entry,
             'form' => $form->createView(),
         ));
@@ -67,7 +67,7 @@ class EntryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($entry);
 
-        return $this->render('entry/show.html.twig', array(
+        return $this->render('@App/entry/show.html.twig', array(
             'entry' => $entry,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class EntryController extends Controller
             return $this->redirectToRoute('entry_edit', array('id' => $entry->getId()));
         }
 
-        return $this->render('entry/edit.html.twig', array(
+        return $this->render('@App/entry/edit.html.twig', array(
             'entry' => $entry,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

@@ -17,16 +17,16 @@ class Builder implements ContainerAwareInterface
         $menu->addChild('Home', array('route' => 'index'));
 
         $em = $this->container->get('doctrine')->getManager();
-        $blog = $em->getRepository('AppBundle:Entry')->findMostRecent();
+        $entry = $em->getRepository('AppBundle:Entry')->findMostRecent();
 
         $menu->addChild('Latest Entry', array(
             'route' => 'entry_show',
             'routeParameters' => array('id' => $entry->getId())
         ));
 
-        $menu->addChild('Entries', array('route' => 'entry'));
-        $menu->addChild('Comments', array('route' => 'comment'));
-        $menu->addChild('Authors', array('route' => 'author'));
+        $menu->addChild('Entries', array('route' => 'entry_index'));
+        $menu->addChild('Comments', array('route' => 'comment_index'));
+//        $menu->addChild('Authors', array('route' => 'author'));
 		
         return $menu;
     }

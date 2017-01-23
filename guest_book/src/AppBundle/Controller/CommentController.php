@@ -26,7 +26,7 @@ class CommentController extends Controller
 
         $comments = $em->getRepository('AppBundle:Comment')->findAll();
 
-        return $this->render('comment/index.html.twig', array(
+        return $this->render('@App/comment/index.html.twig', array(
             'comments' => $comments,
         ));
     }
@@ -67,7 +67,7 @@ class CommentController extends Controller
     {
         $deleteForm = $this->createDeleteForm($comment);
 
-        return $this->render('comment/show.html.twig', array(
+        return $this->render('@App/comment/show.html.twig', array(
             'comment' => $comment,
             'delete_form' => $deleteForm->createView(),
         ));

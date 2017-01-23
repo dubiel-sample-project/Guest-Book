@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Entry;
 
 /**
  * EntryRepository
@@ -10,17 +11,43 @@ namespace AppBundle\Repository;
  */
 class EntryRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $query
+     * @return \Doctrine\ORM\Query
+     */
 	public function findEntriesByQuery($query)
 	{
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT e FROM AppBundle:Entry e WHERE e.content LIKE '%$query%' ORDER BY e.updatedAt DESC";
-        return $em->createQuery($dql);		
+	    $qb = $this->createQueryBuilder('e')
+            ->where('e.content LIKE :query')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setParameter('term', "%$query%")
+        ;
+
+        return $qb->getQuery();
 	}
-	
+
+    /**
+     * @return \Doctrine\ORM\Query
+     */
 	public function getLatestEntries()
 	{
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT e FROM AppBundle:Entry e ORDER BY e.updatedAt DESC";
-        return $em->createQuery($dql);
+        $qb = $this->createQueryBuilder('e')
+            ->orderBy('e.updatedAt', 'DESC');
+
+        return $qb->getQuery();
 	}
+
+    /**
+     * @return Entry|null
+     */
+	public function findMostRecent()
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

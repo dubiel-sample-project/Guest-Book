@@ -1,0 +1,5 @@
+services:
+    app.repository.entry:
+        class: AppBundle\Repository\EntryRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [AppBundle\Entity\Entry ]

@@ -1,6 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base_layout.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
+    
     <h1>Comments list</h1>
 
     <table>

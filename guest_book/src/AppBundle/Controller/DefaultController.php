@@ -2,28 +2,30 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\SearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\SearchType as SearchForm;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="index", defaults={"searchTerm": null})
+     * @Route("/{searchTerm}/", name="index_search", defaults={"searchTerm": null})
+     * @param Request $request
+     * @param string $searchTerm
+     *
+     * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $searchTerm = null)
     {
-		$entryRepo = $this->get('doctrine.orm.entryrepository');
-		
-		$form = new SearchForm();
-		$form->handleRequest($request);
-	
-		if ($form->isSubmitted() && $form->isValid()) {		
-			$query = $entryRepo->findEntriesByQuery($request->get('query'));
-		} else {
+		$entryRepo = $this->get('app.repository.entry');
+
+        $query = $searchTerm ?
+			$entryRepo->findEntriesByQuery($searchTerm) :
 			$query = $entryRepo->getLatestEntries();
-		}		
+        ;
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -35,9 +37,31 @@ class DefaultController extends Controller
         return $this->render(
             'AppBundle:default:index.html.twig',
             array(
-				'pagination'  => $pagination,
-				'search_form' => $form->createView();
+				'pagination'  => $pagination
 			)
+        );
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchAction(Request $request)
+    {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$request->attributes->set('query', $form->get('query'));
+            return $this->redirectToRoute('index', array(
+                'searchTerm' => $form->get('query')
+            ));
+        }
+
+        return $this->render(
+            'AppBundle::search.html.twig',
+            array(
+                'search_form' => $form->createView()
+            )
         );
     }
 }
