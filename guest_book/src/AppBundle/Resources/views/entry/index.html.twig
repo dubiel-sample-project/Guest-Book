@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base_layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>Entries list</h1>
 	
 	<dl>
@@ -18,8 +18,8 @@
 			<dd><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></dd>
 			<dd>{{ entry.title }}</dd>
 			<dd>{{ entry.content }}</dd>
-			<dd>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
-			<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+			<dd>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</dd>
+			<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i') }}{% endif %}</dd>
 			<dd>{{ entry.author }}</dd>
 			<dd>
 				<ul>

@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% render(controller('AppBundle:Default:Search', {'request': app.request})) %}
-{{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+<div class="content">
+    <div class="search">
+        {% render(controller('AppBundle:Default:Search', {'request': app.request})) %}
+    </div>
+    <div class="menu">
+        {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
 {% endblock %}

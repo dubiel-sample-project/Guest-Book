@@ -17,9 +17,14 @@ class SearchType extends AbstractType
     {
         $builder
 			->add('query', TextType::class, array(
-				'required' => true
+				'required' => true,
+                'attr' => array(
+                    'minlength' => 3
+                )
 			))
-			->add('submit', SubmitType::class)
+			->add('submit', SubmitType::class, array(
+			    'label' => 'Search'
+            ))
 		;
     }
     

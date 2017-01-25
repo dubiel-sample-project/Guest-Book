@@ -1,18 +1,68 @@
+h1 {
+  font-size: 1.2em;
+}
+
+div.content {
+  width: 95%;
+  padding: 10px 20px 0 20px;
+  clear: both;
+}
+
+div.content dl, div.content dd, div.content dt {
+  background: none;
+  margin: 5px;
+}
+
+div.content dt {
+  width: 10%
+}
+
+div.content dd {
+  width: 85%
+}
+
+div.content dl ul li {
+  list-style: none outside none;
+  margin: 5px;
+}
+
+div.search {
+  float: right;
+  height: 40px;
+  margin-right: 50px;
+}
+
+div.menu {
+  height: 30px;
+  clear: both;
+}
+
+div.menu ul li {
+  list-style: none outside none;
+  display: inline;
+  padding: 10px;
+}
+
 dl {
+  background: none;
   width: 100%;
   overflow: hidden;
   background: #ff0;
   padding: 0;
   margin: 0
 }
+
 dt {
+  background: none;
   float: left;
   width: 50%;
   background: #cc0;
   padding: 0;
   margin: 0
 }
+
 dd {
+  background: none;
   float: left;
   width: 50%;
   background: #dd0;

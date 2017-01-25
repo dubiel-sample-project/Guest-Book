@@ -51,7 +51,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
         }
 
-        return $this->render('comment/new.html.twig', array(
+        return $this->render('@App/comment/new.html.twig', array(
             'comment' => $comment,
             'form' => $form->createView(),
         ));
@@ -91,7 +91,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
         }
 
-        return $this->render('comment/edit.html.twig', array(
+        return $this->render('@App/comment/edit.html.twig', array(
             'comment' => $comment,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

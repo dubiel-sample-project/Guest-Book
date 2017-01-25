@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base_layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>Entry edit</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    {{ form_widget(edit_form.title) }}
+    {{ form_widget(edit_form.content) }}
     {{ form_end(edit_form) }}
 
     <ul>
@@ -14,7 +14,7 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            {{ form_widget(delete_form.submit) }}
             {{ form_end(delete_form) }}
         </li>
     </ul>

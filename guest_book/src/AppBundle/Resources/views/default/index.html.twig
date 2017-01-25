@@ -1,22 +1,21 @@
 {% extends 'AppBundle::base_layout.html.twig' %}
 
-{% block body %}
-
-{{ parent() }}
-
+{% block content %}
 <div class="count">
     {{ pagination.getTotalItemCount }}
 </div>
 <table>
     <tr>
         <th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
-        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
+        <th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
+        <th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.updatedAt') }}</th>
     </tr>
 
     {% for article in pagination %}
         <tr {% if loop.index is odd %}class="color"{% endif %}>
-            <td>{{ article.id }}</td>
-            <td>{{ article.title }}</td>
+            <td><a href="{{ path('entry_show', {'id': article.id}) }}">{{ article.id }}</a></td>
+            <td><a href="{{ path('entry_show', {'id': article.id}) }}">{{ article.title }}</a></td>
+            <td>{{ article.updatedAt|date('d.m.Y H:s') }}</td>
         </tr>
     {% endfor %}
 </table>

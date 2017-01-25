@@ -1,48 +1,36 @@
 {% extends 'AppBundle::base_layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>Comment</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ comment.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ comment.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ comment.content }}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{% if comment.updatedAt %}{{ comment.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ comment.author }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <dl>
+        <dt>Id</dt>
+        <dd>{{ comment.id }}</dd>
+        <dt>Title</dt>
+        <dd>{{ comment.title }}</dd>
+        <dt>Content</dt>
+        <dd>{{ comment.content }}</dd>
+        <dt>Updatedat</dt>
+        <dd>{% if comment.updatedAt %}{{ comment.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+        <dt>Createdat</dt>
+        <dd>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
+        <dt>Author</dt>
+        <dd>{{ comment.author }}</dd>
+    </dl>
 
-    <ul>
-        <li>
-            <a href="{{ path('comment_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('comment_edit', { 'id': comment.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <dl>
+        <ul>
+            <li>
+                <a href="{{ path('comment_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('comment_edit', { 'id': comment.id }) }}">Edit</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </dl>
 {% endblock %}

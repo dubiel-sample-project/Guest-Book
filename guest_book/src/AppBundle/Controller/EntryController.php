@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Entry;
+use AppBundle\Form\EntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Entry controller.
@@ -82,7 +85,7 @@ class EntryController extends Controller
     public function editAction(Request $request, Entry $entry)
     {
         $deleteForm = $this->createDeleteForm($entry);
-        $editForm = $this->createForm('AppBundle\Form\EntryType', $entry);
+        $editForm = $this->createForm(EntryType::class, $entry);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -129,6 +132,7 @@ class EntryController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('entry_delete', array('id' => $entry->getId())))
+            ->add('submit', SubmitType::class)
             ->setMethod('DELETE')
             ->getForm()
         ;
