@@ -36,13 +36,15 @@ class DefaultController extends Controller
             'AppBundle:default:index.html.twig',
             array(
 				'pagination'  => 
-					$this->get('app.paginator_aware')->getPaginator($query, $request->query->getInt('page', 1))
+					$this->get('app.paginator_aware')->getPaginator($query, $request->query->getInt('page', 1)),
+				'search_term' => $searchTerm
 			)
         );
     }
 
     /**
      * @Route("/search", name="search")
+	 *
      * @param Request $request
      */
     public function searchAction(Request $request)

@@ -74,7 +74,7 @@ class Entry
      *  targetEntity="Comment",
      *  mappedBy="entry"
      * )
- 	 * @ORM\OrderBy({"createdAt" = "DESC"})
+ 	 * @ORM\OrderBy({"updatedAt" = "DESC"})
     */
     private $comments;
 

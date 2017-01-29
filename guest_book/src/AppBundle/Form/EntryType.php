@@ -20,7 +20,7 @@ class EntryType extends AbstractType
 			->add('content')
 			->add('email')
             ->add('submit', SubmitType::class, array(
-				'value' => 'Create'
+				'label' => 'Create'
 			))
 		;
     }

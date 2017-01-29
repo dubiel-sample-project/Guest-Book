@@ -10,12 +10,25 @@
 		<dd>{{ entry.title }}</dd>
 		<dt>Content</dt>
 		<dd>{{ entry.content }}</dd>
-		<dt>Updatedat</dt>
+		<dt>Updated At</dt>
 		<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
 		<dt>Author</dt>
 		<dd>{{ entry.author }}</dd>
 	</dl>
-
+	
+	<h1>Comments</h1>
+	
+	<dl>
+	{% for comment in entry.getComments %}
+		<dt>Id</dt>
+		<dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
+		<dt>Comment</dt>
+		<dd>{{ comment.content }}</dd>
+		<dt>Author</dt>
+		<dd>{{ comment.author }}</dd>
+	{% endfor %}
+	</dl>
+	
     <dl>
         <ul>
             <li>

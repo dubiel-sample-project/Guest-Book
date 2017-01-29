@@ -17,7 +17,7 @@
         <tbody>
 		{% for comment in pagination %}
 			<tr {% if loop.index is odd %}class="color"{% endif %}>
-				<td>><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.id }}</a></td>
+				<td><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.id }}</a></td>
 				<td><a href="{{ path('comment_show', {'id': comment.id}) }}">{{ comment.title }}</a></td>
 				<td>{{ comment.content }}</td>
 				<td>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i') }}{% endif %}</td>

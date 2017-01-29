@@ -19,7 +19,9 @@ class CommentType extends AbstractType
 			->add('title')
 			->add('content')
 			->add('email')			
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+				'label' => 'Create'
+			))
 		;
     }
     

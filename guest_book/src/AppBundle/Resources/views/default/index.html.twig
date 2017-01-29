@@ -8,14 +8,16 @@
     <tr>
         <th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
         <th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
-        <th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.updatedAt') }}</th>
+        <th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.content') }}</th>
+		<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.updatedAt') }}</th>
     </tr>
 
-    {% for article in pagination %}
+    {% for entry in pagination %}
         <tr {% if loop.index is odd %}class="color"{% endif %}>
-            <td><a href="{{ path('entry_show', {'id': article.id}) }}">{{ article.id }}</a></td>
-            <td><a href="{{ path('entry_show', {'id': article.id}) }}">{{ article.title }}</a></td>
-            <td>{{ article.updatedAt|date('d.m.Y H:s') }}</td>
+            <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.id }}</a></td>
+            <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.title }}</a></td>
+            <td>{{ entry.content|replace({search_term:'<strong color="red">'.search_term.'</strong>'}) }}</td>
+            <td>{{ entry.updatedAt|date('d.m.Y H:s') }}</td>
         </tr>
     {% endfor %}
 </table>

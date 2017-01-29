@@ -3,15 +3,7 @@
 {% block content %}
     <h1>Entry creation</h1>
 
-	{{ form_start(form) }}
-	<table>
-		<tr>
-			<td>{{ form_widget(form.title) }}</td>
-			<td>{{ form_widget(form.content) }}</td>
-			<td>{{ form_widget(form.email) }}</td>
-		</tr>			
-	</table>
-    {{ form_end(form) }}	
+	{{ form(form) }}
 
     <ul>
         <li>
