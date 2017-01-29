@@ -25,13 +25,18 @@ class EntryController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        /* @var $entryRepo EntryRepository */
+        $entryRepo = $this->get('app.repository.entry');	
+		
+		$queryBuilder = $entryRepo->findAll();
 
-        $entries = $em->getRepository(Entry::class)->findAll();
-
-        return $this->render('@App/entry/index.html.twig', array(
-            'entries' => $entries,
-        ));
+        return $this->render(
+            '@App/entry/index.html.twig',
+            array(
+				'pagination'  => 
+					$this->get('app.paginator_aware')->getPaginator($queryBuilder, $request->query->getInt('page', 1))
+			)
+        );		
     }
 
     /**

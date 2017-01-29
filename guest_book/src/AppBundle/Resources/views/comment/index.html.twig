@@ -4,38 +4,37 @@
     <h1>Comments list</h1>
 
     <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Updatedat</th>
-                <th>Createdat</th>
-                <th>Author</th>
-                <th>Actions</th>
-            </tr>
+		<thead>
+			<tr>
+				<th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
+				<th>{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}</th>
+				<th>{% if pagination.isSorted('c.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'c.content') }}</th>
+				<th>{% if pagination.isSorted('c.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'c.createdAt') }}</th>
+				<th>{% if pagination.isSorted('c.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'c.updatedAt') }}</th>
+				<th>{% if pagination.isSorted('c.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'c.author') }}</th>
+			</tr>
         </thead>
         <tbody>
-        {% for comment in comments %}
-            <tr>
-                <td><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.id }}</a></td>
-                <td>{{ comment.title }}</td>
-                <td>{{ comment.content }}</td>
-                <td>{% if comment.updatedAt %}{{ comment.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ comment.author }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('comment_show', { 'id': comment.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('comment_edit', { 'id': comment.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+		{% for comment in pagination %}
+			<tr {% if loop.index is odd %}class="color"{% endif %}>
+				<td>><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.id }}</a></td>
+				<td><a href="{{ path('comment_show', {'id': comment.id}) }}">{{ comment.title }}</a></td>
+				<td>{{ comment.content }}</td>
+				<td>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i') }}{% endif %}</td>
+				<td>{% if comment.updatedAt %}{{ comment.updatedAt|date('Y-m-d H:i') }}{% endif %}</td>
+				<td>{{ comment.author }}</td>
+				<td>
+					<ul>
+						<li>
+							<a href="{{ path('comment_show', { 'id': comment.id }) }}">show</a>
+						</li>
+						<li>
+							<a href="{{ path('comment_edit', { 'id': comment.id }) }}">edit</a>
+						</li>
+					</ul>
+				</td>				
+			</tr>
+		{% endfor %}		
         </tbody>
     </table>
 

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\SearchType;
+use AppBundle\Repository\EntryRepository;
+use AppBundle\Repository\PaginatorAwareRepository;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -14,29 +16,27 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="index")
      * @Route("/search/{searchTerm}/", name="index_search", defaults={"searchTerm": null})
+	 *
      * @param Request $request
      * @param string $searchTerm
      *
-     * @Template()
      */
     public function indexAction(Request $request, $searchTerm = null)
     {
-        /* @var $entryRepo EntityRepository */
+        /* @var $paginatorService EntityRepository */		
+		$paginatorService = $this->get('app.paginator_aware');
+		
+        /* @var $entryRepo EntryRepository */
         $entryRepo = $this->get('app.repository.entry');
 
         $query = $searchTerm ? $entryRepo->findEntriesByQuery($searchTerm)
             : $entryRepo->getLatestEntries();
 
-        $paginator = $this->get('knp_paginator')->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10
-        );
-
         return $this->render(
             'AppBundle:default:index.html.twig',
             array(
-				'pagination'  => $paginator
+				'pagination'  => 
+					$this->get('app.paginator_aware')->getPaginator($query, $request->query->getInt('page', 1))
 			)
         );
     }

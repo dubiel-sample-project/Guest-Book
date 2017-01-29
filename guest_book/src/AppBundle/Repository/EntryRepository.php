@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+
 use AppBundle\Entity\Entry;
 
 /**
@@ -11,6 +12,14 @@ use AppBundle\Entity\Entry;
  */
 class EntryRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder("e");
+    }	
+	
     /**
      * @param $query
      * @return \Doctrine\ORM\Query

@@ -18,6 +18,7 @@ class CommentType extends AbstractType
         $builder
 			->add('title')
 			->add('content')
+			->add('email')			
             ->add('submit', SubmitType::class)
 		;
     }

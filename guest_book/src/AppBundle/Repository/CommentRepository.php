@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder("c");
+    }	
 }

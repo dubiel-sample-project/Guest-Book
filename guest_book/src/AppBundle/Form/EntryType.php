@@ -18,7 +18,10 @@ class EntryType extends AbstractType
         $builder
 			->add('title')
 			->add('content')
-            ->add('submit', SubmitType::class)
+			->add('email')
+            ->add('submit', SubmitType::class, array(
+				'value' => 'Create'
+			))
 		;
     }
     

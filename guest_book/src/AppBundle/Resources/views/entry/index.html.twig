@@ -2,37 +2,40 @@
 
 {% block content %}
     <h1>Entries list</h1>
-	
-	<dl>
-		<dt>Id</dt>
-		<dt>Title</dt>
-		<dt>Content</dt>
-		<dt>Createdat</dt>
-		<dt>Updatedat</dt>
-		<dt>Author</dt>
-		<dt>Actions</dt>
-	</dl>
-		
-	{% for entry in entries %}
-		<dl>
-			<dd><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></dd>
-			<dd>{{ entry.title }}</dd>
-			<dd>{{ entry.content }}</dd>
-			<dd>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</dd>
-			<dd>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i') }}{% endif %}</dd>
-			<dd>{{ entry.author }}</dd>
-			<dd>
-				<ul>
-					<li>
-						<a href="{{ path('entry_show', { 'id': entry.id }) }}">show</a>
-					</li>
-					<li>
-						<a href="{{ path('entry_edit', { 'id': entry.id }) }}">edit</a>
-					</li>
-				</ul>
-			</dd>
-		</dl>
-	{% endfor %}
+	<table>
+		<thead>
+			<tr>
+				<th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
+				<th>{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
+				<th>{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
+				<th>{% if pagination.isSorted('e.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'e.createdAt') }}</th>
+				<th>{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'e.updatedAt') }}</th>
+				<th>{% if pagination.isSorted('e.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'e.author') }}</th>
+			</tr>
+        </thead>
+        <tbody>
+		{% for entry in pagination %}
+			<tr {% if loop.index is odd %}class="color"{% endif %}>
+				<td>><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></td>
+				<td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.title }}</a></td>
+				<td>{{ entry.content }}</td>
+				<td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</td>
+				<td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i') }}{% endif %}</td>
+				<td>{{ entry.author }}</td>
+				<td>
+					<ul>
+						<li>
+							<a href="{{ path('entry_show', { 'id': entry.id }) }}">show</a>
+						</li>
+						<li>
+							<a href="{{ path('entry_edit', { 'id': entry.id }) }}">edit</a>
+						</li>
+					</ul>
+				</td>				
+			</tr>
+		{% endfor %}
+        </tbody>		
+	</table>
 
     <ul>
         <li>

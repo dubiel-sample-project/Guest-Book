@@ -21,14 +21,19 @@ class CommentController extends Controller
      * @Method("GET")
      */
     public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    {		
+        /* @var $commentRepo CommentRepository */
+        $commentRepo = $this->get('app.repository.comment');	
+		
+		$queryBuilder = $commentRepo->findAll();
 
-        $comments = $em->getRepository('AppBundle:Comment')->findAll();
-
-        return $this->render('@App/comment/index.html.twig', array(
-            'comments' => $comments,
-        ));
+        return $this->render(
+            '@App/comment/index.html.twig',
+            array(
+				'pagination'  => 
+					$this->get('app.paginator_aware')->getPaginator($queryBuilder, $request->query->getInt('page', 1))
+			)
+        );		
     }
 
     /**
