@@ -26,6 +26,7 @@ class Builder implements ContainerAwareInterface
 
         $menu->addChild('Entries', array('route' => 'entry_index'));
         $menu->addChild('Comments', array('route' => 'comment_index'));
+        $menu->addChild('Authors', array('route' => 'author_index'));
 
         return $menu;
     }

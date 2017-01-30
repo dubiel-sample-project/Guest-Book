@@ -1,0 +1,28 @@
+{% extends 'AppBundle::base_layout.html.twig' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td><h1>Authors list</h1></td>
+        </tr>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+            <th{% if pagination.isSorted('a.username') %} class="sorted"{% endif %}> {{ knp_pagination_sortable(pagination, 'User Name', 'a.username') }}</th>
+            <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}> {{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for author in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td><a href="{{ path('author_show', { 'id': author.id }) }}">{{ author.id }}</a></td>
+                <td><a href="{{ path('author_show', {'id': author.id}) }}">{{ author.username }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include 'AppBundle::pagination.html.twig' %}
+{% endblock %}

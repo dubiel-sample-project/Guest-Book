@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository;
 
-class AuthorRepository extends \Doctrine\ORM\EntityRepository
+class AbstractEntryRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @return \Doctrine\ORM\Query
@@ -11,5 +11,4 @@ class AuthorRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('a')->getQuery();
     }
-
 }

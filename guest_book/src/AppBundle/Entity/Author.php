@@ -25,28 +25,17 @@ class Author extends FOSUser
      * @var Entry[]|Collection
      *
      * @ORM\OneToMany(
-     *  targetEntity="Entry",
+     *  targetEntity="AbstractEntry",
      *  mappedBy="author"
      * )
      */
-    private $entries;
-
-    /**
-     * @var Comment[]|Collection
-     *
-     * @ORM\OneToMany(
-     *  targetEntity="Comment",
-     *  mappedBy="author"
-     * )
-     */
-    private $comments;
+    private $abstractEntries;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->entries = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->abstractEntries = new ArrayCollection();
     }
 
     /**
@@ -58,39 +47,40 @@ class Author extends FOSUser
     }
 
     /**
-     * @return Entry[]|Collection
+     * @return AbstractEntry[]|Collection
+     */
+    public function getAbstractEntries()
+    {
+        return $this->abstractEntries;
+    }
+
+    /**
+     * @param AbstractEntry[]|Collection $entries
+     * @return Author
+     */
+    public function setAbstractEntries($entries)
+    {
+        $this->abstractEntries = $entries;
+        return $this;
+    }
+
+    /**
+     * @return Entry[]|array|ArrayCollection|Collection
      */
     public function getEntries()
     {
-        return $this->entries;
+        return array_filter($this->abstractEntries->toArray(), function(AbstractEntry $entry) {
+            $entry->getType() == AbstractEntry::TYPE_ENTRY;
+        });
     }
 
     /**
-     * @param Entry[]|Collection $entries
-     * @return Author
-     */
-    public function setEntries($entries)
-    {
-        $this->entries = $entries;
-        return $this;
-    }
-
-    /**
-     * @return Comment[]|Collection
+     * @return Entry[]|array|ArrayCollection|Collection
      */
     public function getComments()
     {
-        return $this->comments;
+        return array_filter($this->abstractEntries->toArray(), function(AbstractEntry $entry) {
+            $entry->getType() == AbstractEntry::TYPE_COMMENT;
+        });
     }
-
-    /**
-     * @param Comment[]|Collection $comments
-     * @return Author
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-        return $this;
-    }
-
 }

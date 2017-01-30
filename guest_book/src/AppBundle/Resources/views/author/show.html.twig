@@ -1,0 +1,62 @@
+{% extends 'AppBundle::base_layout.html.twig' %}
+
+{% block content %}
+    <h1>Author</h1>
+
+    <table>
+        <tbody>
+            <tr align="left">
+                <th>Id</th>
+                <td>{{ author.id }}</td>
+            </tr>
+            <tr align="left">
+                <th>User Name</th>
+                <td>{{ author.username }}</td>
+            </tr>
+            <tr align="left">
+                <th>Email</th>
+                <td>{{ author.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if author.getEntries|length %}
+        <h1>Comments</h1>
+        <dl>
+            {% for entry in author.getEntries %}
+                <dt>Id</dt>
+                <dd><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.title }}</a></dd>
+                <dt>Comment</dt>
+                <dd>{{ entry.content }}</dd>
+                <dt>Author</dt>
+                <dd>{{ entry.author }}</dd>
+                <dt>Updated At</dt>
+                <dd>{{ entry.updatedAt|date('Y-m-d H:i:s') }}</dd>
+            {% endfor %}
+        </dl>
+        <br/>
+    {% endif %}
+
+    {% if author.getComments|length %}
+        <h1>Comments</h1>
+        <dl>
+            {% for comment in author.getComments %}
+                <dt>Id</dt>
+                <dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
+                <dt>Comment</dt>
+                <dd>{{ comment.content }}</dd>
+                <dt>Author</dt>
+                <dd>{{ comment.author }}</dd>
+                <dt>Updated At</dt>
+                <dd>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</dd>
+            {% endfor %}
+        </dl>
+        <br/>
+    {% endif %}
+
+    <ul>
+        <li>
+            <a href="{{ path('author_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

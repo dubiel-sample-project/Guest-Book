@@ -4,24 +4,31 @@
 <div class="count">
     {{ pagination.getTotalItemCount }}
 </div>
-<table>
+<table width="100%">
     <tr>
         <th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
         <th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
-        <th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.content') }}</th>
+        <th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
 		<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.updatedAt') }}</th>
+        <th>Author</th>
     </tr>
 
     {% for entry in pagination %}
         <tr {% if loop.index is odd %}class="color"{% endif %}>
             <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.id }}</a></td>
             <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.title }}</a></td>
-            <td>{{ entry.content|replace({search_term:'<strong color="red">'.search_term.'</strong>'}) }}</td>
+            {% if search_term is defined and search_term is not null %}
+                search term: {{ search_term|raw }}
+                <td>{{ entry.content|replace({search_term:'<strong color="red">' ~ search_term ~ '</strong>'}) }}</td>
+            {% else %}
+                <td>{{ entry.content }}</td>
+            {% endif %}
             <td>{{ entry.updatedAt|date('d.m.Y H:s') }}</td>
+            {% if entry.author is not null %}
+                <td><a href="{{ path('author_show', {'id': entry.author.id}) }}">{{ entry.author }}</td>
+            {% endif %}
         </tr>
     {% endfor %}
 </table>
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+{% include 'AppBundle::pagination.html.twig' %}
 {% endblock %}

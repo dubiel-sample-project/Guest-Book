@@ -23,9 +23,6 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $searchTerm = null)
     {
-        /* @var $paginatorService EntityRepository */		
-		$paginatorService = $this->get('app.paginator_aware');
-		
         /* @var $entryRepo EntryRepository */
         $entryRepo = $this->get('app.repository.entry');
 
@@ -36,7 +33,7 @@ class DefaultController extends Controller
             'AppBundle:default:index.html.twig',
             array(
 				'pagination'  => 
-					$this->get('app.paginator_aware')->getPaginator($query, $request->query->getInt('page', 1)),
+					$this->get('app.paginator_aware')->getPagination($query, $request->query->getInt('page', 1)),
 				'search_term' => $searchTerm
 			)
         );

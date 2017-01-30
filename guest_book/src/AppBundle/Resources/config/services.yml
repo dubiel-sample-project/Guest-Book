@@ -1,7 +1,3 @@
-#parameters:
-#    parameter:
-#        key: 'appbundle.paginator_aware.class
-
 services:
     app.repository.entry:
         class: AppBundle\Repository\EntryRepository
@@ -11,8 +7,11 @@ services:
         class: AppBundle\Repository\CommentRepository
         factory: ["@doctrine", getRepository]
         arguments: [AppBundle\Entity\Comment ]
+    app.repository.author:
+        class: AppBundle\Repository\AuthorRepository
+        factory: ["@doctrine", getRepository]
+        arguments: [AppBundle\Entity\Author ]
     app.paginator_aware:
         class: AppBundle\Repository\PaginatorAwareRepository
-        tag: 
-            name: knp_paginator.injectable
-            paginator: knp_paginator
+        tags:
+            - { name: knp_paginator.injectable, paginator: knp_paginator }

@@ -1,22 +1,28 @@
 {% extends 'AppBundle::base_layout.html.twig' %}
 
 {% block content %}
-    <h1>Entries list</h1>
-	<table>
+    <table>
+        <tr>
+            <td width="20%"><h1>Entries list</h1></td>
+            <td align="right" width="100%"><a href="{{ path('entry_new') }}">Create a new entry</a></td>
+        </tr>
+    </table>
+
+	<table width="100%">
 		<thead>
 			<tr>
 				<th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
-				<th>{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
-				<th>{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
-				<th>{% if pagination.isSorted('e.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'e.createdAt') }}</th>
-				<th>{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'e.updatedAt') }}</th>
-				<th>{% if pagination.isSorted('e.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'e.author') }}</th>
+				<th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
+				<th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
+				<th{% if pagination.isSorted('e.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'e.createdAt') }}</th>
+				<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'e.updatedAt') }}</th>
+				<th{% if pagination.isSorted('e.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'e.author') }}</th>
 			</tr>
         </thead>
         <tbody>
 		{% for entry in pagination %}
 			<tr {% if loop.index is odd %}class="color"{% endif %}>
-				<td>><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></td>
+				<td><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.id }}</a></td>
 				<td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.title }}</a></td>
 				<td>{{ entry.content }}</td>
 				<td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</td>
@@ -36,10 +42,5 @@
 		{% endfor %}
         </tbody>		
 	</table>
-
-    <ul>
-        <li>
-            <a href="{{ path('entry_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    {% include 'AppBundle::pagination.html.twig' %}
 {% endblock %}

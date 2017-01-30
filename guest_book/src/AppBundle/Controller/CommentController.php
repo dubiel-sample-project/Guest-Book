@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -20,18 +21,18 @@ class CommentController extends Controller
      * @Route("/", name="comment_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {		
         /* @var $commentRepo CommentRepository */
         $commentRepo = $this->get('app.repository.comment');	
 		
-		$queryBuilder = $commentRepo->findAll();
+		$query = $commentRepo->findAll();
 
         return $this->render(
             '@App/comment/index.html.twig',
             array(
 				'pagination'  => 
-					$this->get('app.paginator_aware')->getPaginator($queryBuilder, $request->query->getInt('page', 1))
+					$this->get('app.paginator_aware')->getPagination($query, $request->query->getInt('page', 1))
 			)
         );		
     }

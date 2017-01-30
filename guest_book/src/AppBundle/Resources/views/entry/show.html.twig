@@ -15,20 +15,24 @@
 		<dt>Author</dt>
 		<dd>{{ entry.author }}</dd>
 	</dl>
-	
-	<h1>Comments</h1>
-	
-	<dl>
-	{% for comment in entry.getComments %}
-		<dt>Id</dt>
-		<dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
-		<dt>Comment</dt>
-		<dd>{{ comment.content }}</dd>
-		<dt>Author</dt>
-		<dd>{{ comment.author }}</dd>
-	{% endfor %}
-	</dl>
-	
+
+	{% if entry.getComments|length %}
+		<h1>Comments</h1>
+		<dl>
+		{% for comment in entry.getComments %}
+			<dt>Id</dt>
+			<dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
+			<dt>Comment</dt>
+			<dd>{{ comment.content }}</dd>
+			<dt>Author</dt>
+			<dd>{{ comment.author }}</dd>
+			<dt>Updated At</dt>
+			<dd>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</dd>
+		{% endfor %}
+		</dl>
+        <br/>
+	{% endif %}
+
     <dl>
         <ul>
             <li>

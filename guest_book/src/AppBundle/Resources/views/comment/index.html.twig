@@ -1,17 +1,22 @@
 {% extends 'AppBundle::base_layout.html.twig' %}
 
 {% block content %}
-    <h1>Comments list</h1>
+    <table>
+        <tr>
+            <td><h1>Comments list</h1></td>
+            <td align="right" width="80%"><a href="{{ path('comment_new') }}">Create a new comment</a></td>
+        </tr>
+    </table>
 
     <table>
 		<thead>
 			<tr>
 				<th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
-				<th>{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}</th>
-				<th>{% if pagination.isSorted('c.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'c.content') }}</th>
-				<th>{% if pagination.isSorted('c.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'c.createdAt') }}</th>
-				<th>{% if pagination.isSorted('c.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'c.updatedAt') }}</th>
-				<th>{% if pagination.isSorted('c.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'c.author') }}</th>
+				<th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}</th>
+				<th{% if pagination.isSorted('c.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'c.content') }}</th>
+				<th{% if pagination.isSorted('c.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'c.createdAt') }}</th>
+				<th{% if pagination.isSorted('c.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'c.updatedAt') }}</th>
+				<th{% if pagination.isSorted('c.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'c.author') }}</th>
 			</tr>
         </thead>
         <tbody>
@@ -37,10 +42,5 @@
 		{% endfor %}		
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('comment_new') }}">Create a new comment</a>
-        </li>
-    </ul>
+    {% include 'AppBundle::pagination.html.twig' %}
 {% endblock %}

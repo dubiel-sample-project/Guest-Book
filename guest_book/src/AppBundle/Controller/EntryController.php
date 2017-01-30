@@ -23,18 +23,18 @@ class EntryController extends Controller
      * @Route("/", name="entry_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /* @var $entryRepo EntryRepository */
         $entryRepo = $this->get('app.repository.entry');	
 		
-		$queryBuilder = $entryRepo->findAll();
+		$query = $entryRepo->findAll();
 
         return $this->render(
             '@App/entry/index.html.twig',
             array(
 				'pagination'  => 
-					$this->get('app.paginator_aware')->getPaginator($queryBuilder, $request->query->getInt('page', 1))
+					$this->get('app.paginator_aware')->getPagination($query, $request->query->getInt('page', 1))
 			)
         );		
     }
@@ -59,7 +59,7 @@ class EntryController extends Controller
             return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
         }
 
-        return $this->render('@#App/entry/new.html.twig', array(
+        return $this->render('@App/entry/new.html.twig', array(
             'entry' => $entry,
             'form' => $form->createView(),
         ));
