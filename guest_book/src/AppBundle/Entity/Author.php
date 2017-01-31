@@ -69,8 +69,8 @@ class Author extends FOSUser
      */
     public function getEntries()
     {
-        return array_filter($this->abstractEntries->toArray(), function(AbstractEntry $entry) {
-            $entry->getType() == AbstractEntry::TYPE_ENTRY;
+        return array_filter($this->getAbstractEntries()->toArray(), function(AbstractEntry $entry) {
+            return $entry->getType() === AbstractEntry::TYPE_ENTRY;
         });
     }
 
@@ -79,8 +79,8 @@ class Author extends FOSUser
      */
     public function getComments()
     {
-        return array_filter($this->abstractEntries->toArray(), function(AbstractEntry $entry) {
-            $entry->getType() == AbstractEntry::TYPE_COMMENT;
+        return array_filter($this->getAbstractEntries()->toArray(), function(AbstractEntry $entry) {
+            return $entry->getType() === AbstractEntry::TYPE_COMMENT;
         });
     }
 }

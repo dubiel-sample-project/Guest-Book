@@ -7,6 +7,7 @@ use AppBundle\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Author controller.
@@ -49,7 +50,7 @@ class AuthorController extends Controller
         $form = $this->createForm('AppBundle\Form\AuthorType', $author);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($author);
             $em->flush($author);
@@ -135,6 +136,9 @@ class AuthorController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('author_delete', array('id' => $author->getId())))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Delete'
+            ))
             ->setMethod('DELETE')
             ->getForm()
         ;

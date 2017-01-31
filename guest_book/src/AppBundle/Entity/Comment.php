@@ -30,7 +30,7 @@ class Comment extends AbstractEntry
      */
     public function getType()
     {
-        return AbstractEntry::TYPE_COMMENT;
+        return self::TYPE_COMMENT;
     }
 
     /**

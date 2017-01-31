@@ -10,6 +10,11 @@ class Builder implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
+    /**
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface
+     */
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');

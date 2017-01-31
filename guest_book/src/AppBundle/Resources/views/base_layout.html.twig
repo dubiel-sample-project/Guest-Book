@@ -3,7 +3,7 @@
 {% block body %}
 <div class="content">
     <div class="search">
-        {% render(controller('AppBundle:Default:Search', {'request': app.request})) %}
+        {% render(controller('AppBundle:Default:Search', {'request': app.request, 'searchTerm': app.request.attributes.get('searchTerm')})) %}
     </div>
     <div class="menu">
         {{ knp_menu_render('AppBundle:Builder:mainMenu') }}

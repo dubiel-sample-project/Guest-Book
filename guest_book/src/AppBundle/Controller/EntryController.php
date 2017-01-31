@@ -93,10 +93,10 @@ class EntryController extends Controller
         $editForm = $this->createForm(EntryType::class, $entry);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('entry_edit', array('id' => $entry->getId()));
+            return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
         }
 
         return $this->render('@App/entry/edit.html.twig', array(
@@ -137,7 +137,9 @@ class EntryController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('entry_delete', array('id' => $entry->getId())))
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Delete'
+            ))
             ->setMethod('DELETE')
             ->getForm()
         ;

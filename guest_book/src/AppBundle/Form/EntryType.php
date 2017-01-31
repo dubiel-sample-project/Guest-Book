@@ -2,8 +2,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Author;
 use AppBundle\Entity\Entry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,9 +23,11 @@ class EntryType extends AbstractType
 			->add('title')
 			->add('content')
 			->add('email', EmailType::class)
-            ->add('submit', SubmitType::class, array(
-				'label' => 'Create'
-			))
+            ->add('author', EntityType::class, array(
+                'required' => true,
+                'class' => Author::class
+            ))
+            ->add('submit', SubmitType::class)
 		;
     }
     

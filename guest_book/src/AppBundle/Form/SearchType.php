@@ -19,7 +19,8 @@ class SearchType extends AbstractType
 			->add('query', TextType::class, array(
 				'required' => true,
                 'attr' => array(
-                    'minlength' => 3
+                    'minlength' => 3,
+                    'value' =>  $options['value']
                 )
 			))
 			->add('submit', SubmitType::class, array(
@@ -34,7 +35,8 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => null,
+            'value' => null
         ));
     }
 

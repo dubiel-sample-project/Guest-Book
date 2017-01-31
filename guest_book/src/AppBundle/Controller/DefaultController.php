@@ -15,7 +15,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="index")
-     * @Route("/search/{searchTerm}/", name="index_search", defaults={"searchTerm": null})
+     * @Route("/index/{searchTerm}/", name="index_search", defaults={"searchTerm": null})
 	 *
      * @param Request $request
      * @param string $searchTerm
@@ -40,16 +40,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/search", name="search")
+     * @Route("/search", name="search", defaults={"searchTerm": null} )
 	 *
      * @param Request $request
+     * @param string $searchTerm
      */
-    public function searchAction(Request $request)
+    public function searchAction(Request $request, $searchTerm = null)
     {
-        $form = $this->createForm(SearchType::class);
+        $form = $this->createForm(SearchType::class, null, array(
+            'value' => $searchTerm
+        ));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             return $this->redirectToRoute('index_search', array(
                 'searchTerm' => $form->get('query')->getData()
             ));

@@ -21,10 +21,10 @@
     </table>
 
     {% if author.getEntries|length %}
-        <h1>Comments</h1>
+        <h1>Entries</h1>
         <dl>
             {% for entry in author.getEntries %}
-                <dt>Id</dt>
+                <dt>Title</dt>
                 <dd><a href="{{ path('entry_show', { 'id': entry.id }) }}">{{ entry.title }}</a></dd>
                 <dt>Comment</dt>
                 <dd>{{ entry.content }}</dd>
@@ -34,14 +34,13 @@
                 <dd>{{ entry.updatedAt|date('Y-m-d H:i:s') }}</dd>
             {% endfor %}
         </dl>
-        <br/>
     {% endif %}
 
     {% if author.getComments|length %}
         <h1>Comments</h1>
         <dl>
             {% for comment in author.getComments %}
-                <dt>Id</dt>
+                <dt>Title</dt>
                 <dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
                 <dt>Comment</dt>
                 <dd>{{ comment.content }}</dd>
@@ -51,7 +50,6 @@
                 <dd>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</dd>
             {% endfor %}
         </dl>
-        <br/>
     {% endif %}
 
     <ul>

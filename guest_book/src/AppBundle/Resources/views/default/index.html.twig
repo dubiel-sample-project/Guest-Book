@@ -18,8 +18,7 @@
             <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.id }}</a></td>
             <td><a href="{{ path('entry_show', {'id': entry.id}) }}">{{ entry.title }}</a></td>
             {% if search_term is defined and search_term is not null %}
-                search term: {{ search_term|raw }}
-                <td>{{ entry.content|replace({search_term:'<strong color="red">' ~ search_term ~ '</strong>'}) }}</td>
+                <td>{{ entry.content|strireplace((search_term), '<font color="red">' ~ search_term ~ '</font>')|raw }}</td>
             {% else %}
                 <td>{{ entry.content }}</td>
             {% endif %}

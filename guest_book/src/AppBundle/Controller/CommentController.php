@@ -7,6 +7,7 @@ use AppBundle\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Comment controller.
@@ -135,6 +136,9 @@ class CommentController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('comment_delete', array('id' => $comment->getId())))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Delete'
+            ))
             ->setMethod('DELETE')
             ->getForm()
         ;

@@ -77,7 +77,7 @@ abstract class AbstractEntry
      *
      * @ORM\ManyToOne(
      *  targetEntity="Author",
-     *  inversedBy="entries"
+     *  inversedBy="abstractEntries"
      * )
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id", nullable=true)
      */

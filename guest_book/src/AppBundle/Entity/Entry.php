@@ -31,7 +31,7 @@ class Entry extends AbstractEntry
      */
     public function getType()
     {
-        return AbstractEntry::TYPE_ENTRY;
+        return self::TYPE_ENTRY;
     }
 
     public function __construct()
