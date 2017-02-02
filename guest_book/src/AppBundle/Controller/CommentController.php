@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Entry;
+use AppBundle\Form\CommentType;
 use AppBundle\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,10 +49,10 @@ class CommentController extends Controller
     public function newAction(Request $request)
     {
         $comment = new Comment();
-        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
@@ -59,6 +61,34 @@ class CommentController extends Controller
         }
 
         return $this->render('@App/comment/new.html.twig', array(
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new comment entity.
+     *
+     * @Route("/create/entry/{entry}", name="comment_create")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request, Entry $entry)
+    {
+        $comment = new Comment();
+        $comment->setEntry($entry);
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush($comment);
+
+            return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
+        }
+
+        return $this->render('@App/comment/create.html.twig', array(
             'comment' => $comment,
             'form' => $form->createView(),
         ));
@@ -89,13 +119,13 @@ class CommentController extends Controller
     public function editAction(Request $request, Comment $comment)
     {
         $deleteForm = $this->createDeleteForm($comment);
-        $editForm = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $editForm = $this->createForm(CommentType::class, $comment);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
+            return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
         }
 
         return $this->render('@App/comment/edit.html.twig', array(
@@ -116,7 +146,7 @@ class CommentController extends Controller
         $form = $this->createDeleteForm($comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($comment);
             $em->flush($comment);

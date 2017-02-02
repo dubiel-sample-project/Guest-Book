@@ -16,36 +16,48 @@
 		<dd>{{ entry.author }}</dd>
 	</dl>
 
+    <dl>
+    <ul>
+        <li>
+            <a href="{{ path('entry_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('entry_edit', { 'id': entry.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            {{ form_widget(delete_form) }}
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    <dl>
+
+    <h1>Add a Comment: </h1>
+    {% render(controller('AppBundle:Comment:create', {'request': app.request, 'entry': entry.id})) %}
+
 	{% if entry.getComments|length %}
 		<h1>Comments</h1>
-		<dl>
+        <table>
 		{% for comment in entry.getComments %}
-			<dt>Id</dt>
-			<dd><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></dd>
-			<dt>Comment</dt>
-			<dd>{{ comment.content }}</dd>
-			<dt>Author</dt>
-			<dd>{{ comment.author }}</dd>
-			<dt>Updated At</dt>
-			<dd>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</dd>
+            <tr>
+                <td>Id</td>
+                <td><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.title }}</a></td>
+            </tr>
+            <tr>
+                <td>Comment</td>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>{{ comment.author }}</td>
+            </tr>
+            <tr>
+                <td>Updated At</td>
+                <td>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
 		{% endfor %}
-		</dl>
+        </table>
         <br/>
 	{% endif %}
 
-    <dl>
-        <ul>
-            <li>
-                <a href="{{ path('entry_index') }}">Back to the list</a>
-            </li>
-            <li>
-                <a href="{{ path('entry_edit', { 'id': entry.id }) }}">Edit</a>
-            </li>
-            <li>
-                {{ form_start(delete_form) }}
-                {{ form_widget(delete_form.submit) }}
-                {{ form_end(delete_form) }}
-            </li>
-        </ul>
-    <dl>
 {% endblock %}

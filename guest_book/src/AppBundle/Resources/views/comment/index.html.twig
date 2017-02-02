@@ -8,8 +8,12 @@
         </tr>
     </table>
 
-    <table>
+    <table width="100%">
 		<thead>
+			<tr>
+				{% include 'AppBundle::pagination_count.html.twig' %}
+				<br/>
+			</tr>
 			<tr>
 				<th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
 				<th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}</th>

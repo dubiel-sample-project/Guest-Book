@@ -11,12 +11,17 @@
 	<table width="100%">
 		<thead>
 			<tr>
+				{% include 'AppBundle::pagination_count.html.twig' %}
+				<br/>
+			</tr>
+			<tr>
 				<th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
 				<th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
 				<th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
 				<th{% if pagination.isSorted('e.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'e.createdAt') }}</th>
 				<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'e.updatedAt') }}</th>
 				<th{% if pagination.isSorted('e.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'e.author') }}</th>
+				<th># of Comments</th>
 			</tr>
         </thead>
         <tbody>
@@ -28,6 +33,7 @@
 				<td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</td>
 				<td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i') }}{% endif %}</td>
 				<td>{{ entry.author }}</td>
+				<td>{{ entry.getComments|length }}</td>
 				<td>
 					<ul>
 						<li>

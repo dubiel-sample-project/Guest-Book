@@ -20,7 +20,8 @@ class Entry extends AbstractEntry
      *
      * @ORM\OneToMany(
      *  targetEntity="Comment",
-     *  mappedBy="entry"
+     *  mappedBy="entry",
+     *  cascade={"persist", "remove"}
      * )
  	 * @ORM\OrderBy({"updatedAt" = "DESC"})
     */

@@ -1,10 +1,11 @@
 {% extends 'AppBundle::base_layout.html.twig' %}
 
 {% block content %}
-<div class="count">
-    {{ pagination.getTotalItemCount }}
-</div>
 <table width="100%">
+    <tr>
+        {% include 'AppBundle::pagination_count.html.twig' %}
+        <br/>
+    </tr>
     <tr>
         <th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
         <th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>

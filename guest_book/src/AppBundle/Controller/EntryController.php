@@ -51,7 +51,7 @@ class EntryController extends Controller
         $form = $this->createForm('AppBundle\Form\EntryType', $entry);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entry);
             $em->flush($entry);
@@ -117,7 +117,7 @@ class EntryController extends Controller
         $form = $this->createDeleteForm($entry);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($entry);
             $em->flush($entry);

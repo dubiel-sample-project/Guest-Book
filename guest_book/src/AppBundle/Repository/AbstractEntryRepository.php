@@ -9,6 +9,8 @@ class AbstractEntryRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findAll()
     {
-        return $this->createQueryBuilder('a')->getQuery();
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.updatedAt', 'DESC')
+            ->getQuery();
     }
 }

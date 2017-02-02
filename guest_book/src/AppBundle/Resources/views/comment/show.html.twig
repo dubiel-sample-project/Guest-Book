@@ -10,9 +10,9 @@
         <dd>{{ comment.title }}</dd>
         <dt>Content</dt>
         <dd>{{ comment.content }}</dd>
-        <dt>Updatedat</dt>
+        <dt>Updated At</dt>
         <dd>{% if comment.updatedAt %}{{ comment.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
-        <dt>Createdat</dt>
+        <dt>Created At</dt>
         <dd>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
         <dt>Author</dt>
         <dd>{{ comment.author }}</dd>
@@ -28,7 +28,7 @@
             </li>
             <li>
                 {{ form_start(delete_form) }}
-                    <input type="submit" value="Delete">
+                {{ form_widget(delete_form) }}
                 {{ form_end(delete_form) }}
             </li>
         </ul>

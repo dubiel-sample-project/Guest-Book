@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Author;
+use AppBundle\Form\AuthorType;
 use AppBundle\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,7 +48,7 @@ class AuthorController extends Controller
     public function newAction(Request $request)
     {
         $author = new Author();
-        $form = $this->createForm('AppBundle\Form\AuthorType', $author);
+        $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -89,13 +90,13 @@ class AuthorController extends Controller
     public function editAction(Request $request, Author $author)
     {
         $deleteForm = $this->createDeleteForm($author);
-        $editForm = $this->createForm('AppBundle\Form\AuthorType', $author);
+        $editForm = $this->createForm(AuthorType::class, $author);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('author_edit', array('id' => $author->getId()));
+            return $this->redirectToRoute('author_show', array('id' => $author->getId()));
         }
 
         return $this->render('@App/author/edit.html.twig', array(
@@ -116,7 +117,7 @@ class AuthorController extends Controller
         $form = $this->createDeleteForm($author);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($author);
             $em->flush($author);
