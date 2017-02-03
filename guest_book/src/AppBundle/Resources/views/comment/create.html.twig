@@ -1,3 +1,3 @@
-{{ form_start(form, {'action': path('comment_create', {'entry': app.request.attributes.get('entry').id, }), 'method': 'POST'}) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{{ form_start(comment_form, {'action': path('comment_create', {'entry': app.request.attributes.get('entry').id, }), 'method': 'POST'}) }}
+{{ form_widget(comment_form) }}
+{{ form_end(comment_form) }}

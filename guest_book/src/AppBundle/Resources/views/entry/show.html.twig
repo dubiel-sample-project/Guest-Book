@@ -33,7 +33,9 @@
     <dl>
 
     <h1>Add a Comment: </h1>
-    {% render(controller('AppBundle:Comment:create', {'request': app.request, 'entry': entry.id})) %}
+    {{ form_start(comment_form, {'action': path('entry_show', {'id': entry.id}), 'method': 'POST'}) }}
+    {{ form_widget(comment_form) }}
+    {{ form_end(comment_form) }}
 
 	{% if entry.getComments|length %}
 		<h1>Comments</h1>
@@ -54,6 +56,9 @@
             <tr>
                 <td>Updated At</td>
                 <td>{{ comment.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <td><br/></td>
             </tr>
 		{% endfor %}
         </table>

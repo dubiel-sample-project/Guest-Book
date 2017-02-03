@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Entry;
+use AppBundle\Entity\Comment;
 use AppBundle\Form\EntryType;
+use AppBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -69,15 +71,33 @@ class EntryController extends Controller
      * Finds and displays a entry entity.
      *
      * @Route("/{id}", name="entry_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(Entry $entry)
+    public function showAction(Request $request, Entry $entry)
     {
+        $comment = new Comment();
+        $comment->setEntry($entry);
+
+        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isValid()) {
+//            $entry->addComment($comment);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush($comment);
+            $em->flush($entry);
+
+            return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
+        }
+
         $deleteForm = $this->createDeleteForm($entry);
 
         return $this->render('@App/entry/show.html.twig', array(
             'entry' => $entry,
             'delete_form' => $deleteForm->createView(),
+            'comment_form' => $commentForm->createView()
         ));
     }
 

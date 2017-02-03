@@ -15,12 +15,12 @@
 				<br/>
 			</tr>
 			<tr>
-				<th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
-				<th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}</th>
-				<th{% if pagination.isSorted('c.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'c.content') }}</th>
-				<th{% if pagination.isSorted('c.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'c.createdAt') }}</th>
-				<th{% if pagination.isSorted('c.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'c.updatedAt') }}</th>
-				<th{% if pagination.isSorted('c.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'c.author') }}</th>
+				<th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+				<th{% if pagination.isSorted('a.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+				<th{% if pagination.isSorted('a.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'a.content') }}</th>
+				<th{% if pagination.isSorted('a.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'a.createdAt') }}</th>
+				<th{% if pagination.isSorted('a.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'a.updatedAt') }}</th>
+				<th{% if pagination.isSorted('a.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'a.author') }}</th>
 			</tr>
         </thead>
         <tbody>

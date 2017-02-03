@@ -15,13 +15,13 @@
 				<br/>
 			</tr>
 			<tr>
-				<th>{{ knp_pagination_sortable(pagination, 'Id', 'e.id') }}</th>
-				<th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
-				<th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
-				<th{% if pagination.isSorted('e.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'e.createdAt') }}</th>
-				<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'e.updatedAt') }}</th>
-				<th{% if pagination.isSorted('e.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'e.author') }}</th>
-				<th># of Comments</th>
+				<th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+				<th{% if pagination.isSorted('a.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+				<th{% if pagination.isSorted('a.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'a.content') }}</th>
+				<th{% if pagination.isSorted('a.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created At', 'a.createdAt') }}</th>
+				<th{% if pagination.isSorted('a.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated At', 'a.updatedAt') }}</th>
+				<th{% if pagination.isSorted('a.author') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Author', 'a.author') }}</th>
+				<th{% if pagination.isSorted('a.numberOfComments') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, '# of Comments', 'a.numberOfComments') }}</th>
 			</tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
 				<td>{% if entry.createdAt %}{{ entry.createdAt|date('Y-m-d H:i') }}{% endif %}</td>
 				<td>{% if entry.updatedAt %}{{ entry.updatedAt|date('Y-m-d H:i') }}{% endif %}</td>
 				<td>{{ entry.author }}</td>
-				<td>{{ entry.getComments|length }}</td>
+				<td>{{ entry.numberOfComments|default(0) }}</td>
 				<td>
 					<ul>
 						<li>

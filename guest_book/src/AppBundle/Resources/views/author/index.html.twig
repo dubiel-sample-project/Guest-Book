@@ -7,7 +7,7 @@
         </tr>
     </table>
 
-    <table width="33%">
+    <table width="50%">
         <thead>
         <tr>
             {% include 'AppBundle::pagination_count.html.twig' %}
@@ -24,6 +24,7 @@
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td><a href="{{ path('author_show', { 'id': author.id }) }}">{{ author.id }}</a></td>
                 <td><a href="{{ path('author_show', {'id': author.id}) }}">{{ author.username }}</a></td>
+                <td><a href="{{ path('author_show', {'id': author.id}) }}">{{ author.email }}</a></td>
             </tr>
         {% endfor %}
         </tbody>

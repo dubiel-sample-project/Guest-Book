@@ -67,34 +67,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Creates a new comment entity.
-     *
-     * @Route("/create/entry/{entry}", name="comment_create")
-     * @Method({"POST"})
-     */
-    public function createAction(Request $request, Entry $entry)
-    {
-        $comment = new Comment();
-        $comment->setEntry($entry);
-
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush($comment);
-
-            return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
-        }
-
-        return $this->render('@App/comment/create.html.twig', array(
-            'comment' => $comment,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a comment entity.
      *
      * @Route("/{id}", name="comment_show")

@@ -28,6 +28,13 @@ class Entry extends AbstractEntry
     private $comments;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="number_of_comments", type="integer")
+     */
+    private $numberOfComments;
+
+    /**
      * @return int
      */
     public function getType()
@@ -58,5 +65,54 @@ class Entry extends AbstractEntry
         $this->comments = $comments;
         return $this;
     }
+
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments->add($comment);
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function removeComment(Comment $comment)
+    {
+        if($this->comments->contains($comment)) {
+            $this->comments->remove($comment);
+        }
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfComments()
+    {
+        return $this->numberOfComments;
+    }
+
+    /**
+     * @param int $numberOfComments
+     * @return Entry
+     */
+    public function setNumberOfComments($numberOfComments)
+    {
+        $this->numberOfComments = $numberOfComments;
+        return $this;
+    }
+
+    /**
+     * @ORM\PreFlush
+     */
+    public function preFlush()
+    {
+        $this->setNumberOfComments(count($this->comments));
+    }
+
 }
 
