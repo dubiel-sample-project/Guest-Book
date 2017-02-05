@@ -256,4 +256,11 @@ abstract class AbstractEntry
         $this->updatedAt = new \DateTime();
     }
 
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->title;
+	}
 }

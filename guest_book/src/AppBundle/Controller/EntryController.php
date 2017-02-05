@@ -78,16 +78,16 @@ class EntryController extends Controller
         $comment = new Comment();
         $comment->setEntry($entry);
 
-        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm = $this->createForm(CommentType::class, $comment, array(
+			'show_entry' => false
+		));
         $commentForm->handleRequest($request);
 
         if ($commentForm->isValid()) {
-//            $entry->addComment($comment);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
-            $em->flush($entry);
+			$em->flush($entry);
 
             return $this->redirectToRoute('entry_show', array('id' => $entry->getId()));
         }

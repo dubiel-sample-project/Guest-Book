@@ -11,7 +11,8 @@
         <th{% if pagination.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.title') }}</th>
         <th{% if pagination.isSorted('e.content') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Content', 'e.content') }}</th>
 		<th{% if pagination.isSorted('e.updatedAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date', 'e.updatedAt') }}</th>
-        <th>Author</th>
+		<th>Author</th>
+		<th{% if pagination.isSorted('e.numberOfComments') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, '# of Comments', 'e.numberOfComments') }}</th>	
     </tr>
 
     {% for entry in pagination %}
@@ -24,9 +25,12 @@
                 <td>{{ entry.content }}</td>
             {% endif %}
             <td>{{ entry.updatedAt|date('d.m.Y H:s') }}</td>
+			<td>
             {% if entry.author is not null %}
-                <td><a href="{{ path('author_show', {'id': entry.author.id}) }}">{{ entry.author }}</td>
+               <a href="{{ path('author_show', {'id': entry.author.id}) }}">{{ entry.author }}
             {% endif %}
+			</td>
+			<td>{{ entry.numberOfComments|default(0) }}</td>
         </tr>
     {% endfor %}
 </table>

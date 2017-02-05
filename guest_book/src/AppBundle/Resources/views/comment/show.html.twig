@@ -6,6 +6,8 @@
     <dl>
         <dt>Id</dt>
         <dd>{{ comment.id }}</dd>
+        <dt>Entry</dt>
+        <dd><a href="{{ path('entry_show', { 'id': comment.entry.id }) }}">{{ comment.entry }}</a></dd>
         <dt>Title</dt>
         <dd>{{ comment.title }}</dd>
         <dt>Content</dt>
@@ -15,7 +17,7 @@
         <dt>Created At</dt>
         <dd>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</dd>
         <dt>Author</dt>
-        <dd>{{ comment.author }}</dd>
+        <dd><a href="{{ path('author_show', { 'id': comment.author.id }) }}">{{ comment.author }}</a></dd>
     </dl>
 
     <dl>

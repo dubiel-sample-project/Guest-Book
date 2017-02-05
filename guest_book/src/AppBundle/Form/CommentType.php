@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\AbstractEntry;
 use AppBundle\Entity\Author;
 use AppBundle\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +19,15 @@ class CommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        if($options['show_entry']) {
+			$builder
+				->add('entry', EntityType::class, array(
+					'required' => true,
+					'class' => AbstractEntry::class
+				));
+		}
+
+		$builder
 			->add('title')
 			->add('content')
             ->add('email', EmailType::class)
@@ -36,7 +45,8 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Comment::class
+            'data_class' => Comment::class,
+			'show_entry' => true
         ));
     }
 
